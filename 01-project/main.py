@@ -3,12 +3,17 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-@app.get("/")
-async def get_method():
-    return {"message": "This is get method"}
+@app.get("/users/{user_id}")  # Path Parameter
+async def get_method(user_id: int):
+    return {"message": f"This is get method {user_id}"}
 
 
-@app.post("/")
+@app.get("/items")  # Query Parameter
+async def get_method(skip: int = 0, limit: int = 100):
+    return {"skip": skip, "limit": limit}
+
+
+@app.post("/order")
 async def post_method():
     return {"message": "This is the post method"}
 
@@ -26,6 +31,8 @@ async def delete_methods():
 @app.patch("/")
 async def patch_method():
     return {"message": "This is the patch method"}
+
+
 
 # async def app(scope, receive, send):
 #     assert scope['type'] == 'http'
