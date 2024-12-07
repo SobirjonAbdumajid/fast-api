@@ -4,10 +4,28 @@ app = FastAPI()
 
 
 @app.get("/")
-async def read_root():
-    return {"body": "World"}
+async def get_method():
+    return {"message": "This is get method"}
 
 
+@app.post("/")
+async def post_method():
+    return {"message": "This is the post method"}
+
+
+@app.put("/")
+async def put_method():
+    return {"message": "This is the put method"}
+
+
+@app.delete("/")
+async def delete_methods():
+    return {"message": "This is the delete methods"}
+
+
+@app.patch("/")
+async def patch_method():
+    return {"message": "This is the patch method"}
 
 # async def app(scope, receive, send):
 #     assert scope['type'] == 'http'
