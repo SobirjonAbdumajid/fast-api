@@ -4,15 +4,22 @@ from pydantic import BaseModel
 class Product(BaseModel):
     title: str
     description: str
-    price: float
+    price: tuple[int, float]
     stock: int
 
 
-banana = Product(
+banana1 = Product(
     title="Banana",
     description=",",
-    price=100,
+    price=[100, 2],
+    stock=3
+)
+banana2 = Product(
+    title="Banana",
+    description="Text",
+    price=[100, 20.1],
     stock=3
 )
 
-print(banana.model_dump())
+print(banana1 == banana2)
+print(banana1.model_dump())
