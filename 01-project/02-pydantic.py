@@ -14,6 +14,7 @@ banana1 = Product(
     price=[100, 2],
     stock=3
 )
+
 banana2 = Product(
     title="Banana",
     description="Text",
