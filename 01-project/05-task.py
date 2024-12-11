@@ -1,3 +1,4 @@
+from datetime import datetime
 from fastapi import FastAPI
 from pydantic import BaseModel
 from starlette import status
@@ -10,6 +11,7 @@ class BookSchema(BaseModel):
     description: str
     quantity: int
     price: str
+    created_at: datetime = datetime.now().strftime("%Y-%m-%d")
 
 
 books = []
@@ -32,13 +34,17 @@ async def read_book():
     return books
 
 
-@app.put("/book/{book_id}")
+@app.put(
+    "/book/{book_id}",
+    status_code=status.HTTP_201_CREATED
+)
 async def update_book(book_id: int, updated_book: BookSchema):
     books[book_id] = updated_book
-    return updated_book.model_dump()
 
 
-@app.delete("/book/{book_id}")
+@app.delete(
+    "/book/{book_id}",
+    status_code=status.HTTP_204_NO_CONTENT
+)
 async def delete_book(book_id: int):
     del books[book_id]
-    return status.HTTP_204_NO_CONTENT
