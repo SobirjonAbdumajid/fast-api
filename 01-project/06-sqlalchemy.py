@@ -1,6 +1,6 @@
 from sqlalchemy import text
 
-from database import get_db, engine
+from database import get_db
 from fastapi import Depends, FastAPI, HTTPException
 from sqlmodel import Session
 from pydantic import BaseModel
@@ -8,11 +8,13 @@ from datetime import date
 
 app = FastAPI()
 
+
 class Student(BaseModel):
     name: str
     age: int
     birth_date: date  # Use ISO format: "YYYY-MM-DD"
     enrollment_year: int
+
 
 @app.get("/students")
 async def get_students(
@@ -21,7 +23,6 @@ async def get_students(
     stmt = db.execute(text("SELECT * FROM students"))
     mapping_res = stmt.mappings().all()
     return mapping_res
-
 
 
 @app.post("/students")
