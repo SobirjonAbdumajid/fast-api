@@ -98,6 +98,3 @@ def read_students(
     students = session.exec(select(Student).offset(offset).limit(limit)).all()
     return students
 
-
-# Ensure the database schema matches the table
-
