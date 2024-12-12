@@ -1,3 +1,4 @@
+# # 1
 # from typing import Annotated
 #
 # from fastapi import Depends, FastAPI, HTTPException, Query
@@ -47,54 +48,54 @@
 # ) -> list[Hero]:
 #     heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
 #     return heroes
+
+
+
+# # 2
+# from typing import Annotated
+# from datetime import date
+#
+# from fastapi import Depends, FastAPI, Query
+# from sqlmodel import Field, Session, SQLModel, create_engine, select
 #
 #
+# class Student(SQLModel, table=True):
+#     student_id: int | None = Field(default=None, primary_key=True)
+#     name: str = Field(index=True)
+#     age: int
+#     birth_date: date
+#     enrollment_year: int
+#
+#
+# # PostgreSQL database connection configuration
+# engine = create_engine("postgresql+psycopg2://postgres:onamotam@localhost:5432/main_task_database")
+#
+#
+# def get_session():
+#     with Session(engine) as session:
+#         yield session
+#
+#
+# SessionDep = Annotated[Session, Depends(get_session)]
+#
+# app = FastAPI()
+#
+#
+# @app.post("/students/")
+# def create_student(student: Student, session: SessionDep) -> Student:
+#     session.add(student)
+#     session.commit()
+#     session.refresh(student)
+#     return student
+#
+#
+# @app.get("/students/")
+# def read_students(
+#     session: SessionDep,
+#     offset: int = 0,
+#     limit: Annotated[int, Query(le=100)] = 100,
+# ) -> list[Student]:
+#     students = session.exec(select(Student).offset(offset).limit(limit)).all()
+#     return students
 
-
-from typing import Annotated
-from datetime import date
-
-from fastapi import Depends, FastAPI, Query
-from sqlmodel import Field, Session, SQLModel, create_engine, select
-
-
-# Define the SQLModel for the "students" table
-class Student(SQLModel, table=True):
-    student_id: int | None = Field(default=None, primary_key=True)
-    name: str = Field(index=True)
-    age: int
-    birth_date: date
-    enrollment_year: int
-
-
-# PostgreSQL database connection configuration
-engine = create_engine("postgresql+psycopg2://postgres:onamotam@localhost:5432/main_task_database")
-
-
-def get_session():
-    with Session(engine) as session:
-        yield session
-
-
-SessionDep = Annotated[Session, Depends(get_session)]
-
-app = FastAPI()
-
-
-@app.post("/students/")
-def create_student(student: Student, session: SessionDep) -> Student:
-    session.add(student)
-    session.commit()
-    session.refresh(student)
-    return student
-
-
-@app.get("/students/")
-def read_students(
-    session: SessionDep,
-    offset: int = 0,
-    limit: Annotated[int, Query(le=100)] = 100,
-) -> list[Student]:
-    students = session.exec(select(Student).offset(offset).limit(limit)).all()
-    return students
 
