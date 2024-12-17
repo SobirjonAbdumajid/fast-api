@@ -1,3 +1,4 @@
+# config.py
 from functools import cache
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, AsyncEngine
 from app.core.settings import get_settings

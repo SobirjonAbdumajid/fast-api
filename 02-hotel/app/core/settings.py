@@ -1,13 +1,14 @@
-from functools import cache
-
+# settings.py
+from typing import Optional
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from functools import cache
 
 
 class Settings(BaseSettings):
     # PROJECT METADATA
-    PROJECT_NAME: str
-    PROJECT_DESCRIPTION: str
-    PROJECT_VERSION: str
+    PROJECT_NAME: str = "Default Project Name"
+    PROJECT_DESCRIPTION: Optional[str] = None
+    PROJECT_VERSION: str = "0.0.1"
 
     # POSTGRES CREDENTIALS
     POSTGRES_USER: str
