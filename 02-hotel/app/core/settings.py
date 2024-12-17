@@ -1,23 +1,22 @@
-# settings.py
-from typing import Optional
-from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import cache
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    # PROJECT METADATA
-    PROJECT_NAME: str = "Default Project Name"
-    PROJECT_DESCRIPTION: Optional[str] = None
-    PROJECT_VERSION: str = "0.0.1"
+    # PROJECT INFO
+    PROJECT_NAME: str = 'PDP`s Hotel'
+    PROJECT_DESCRIPTION: str = 'This is learning project'
+    PROJECT_VERSION: str = '0.0.1'
 
     # POSTGRES CREDENTIALS
-    POSTGRES_USER: str
     POSTGRES_PASSWORD: str
+    POSTGRES_USER: str
+    POSTGRES_NAME: str
     POSTGRES_HOST: str
     POSTGRES_PORT: str
-    POSTGRES_DB: str
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file='.env')
 
 
 @cache
