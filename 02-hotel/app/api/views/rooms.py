@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException
-
 from app.api.controller.rooms import RoomsController, RoomsDetailsController
 
 router = APIRouter()
