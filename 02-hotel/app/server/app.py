@@ -2,7 +2,7 @@ from fastapi import FastAPI
 
 from app.core.settings import get_settings
 
-from app.api.views.test import router as test_router
+from app.api.views.rooms import router as rooms_router
 
 settings = get_settings()
 
@@ -13,5 +13,5 @@ def create_app() -> FastAPI:
         description=settings.PROJECT_DESCRIPTION,
         version=settings.PROJECT_VERSION,
     )
-    app_.include_router(test_router)
+    app_.include_router(rooms_router, prefix="/rooms")
     return app_

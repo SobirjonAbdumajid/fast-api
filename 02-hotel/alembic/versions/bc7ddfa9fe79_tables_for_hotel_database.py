@@ -1,8 +1,8 @@
 """tables for hotel database
 
-Revision ID: 0cbab6bb7ef5
+Revision ID: bc7ddfa9fe79
 Revises: 
-Create Date: 2024-12-18 10:11:27.763799
+Create Date: 2024-12-18 10:57:29.643283
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '0cbab6bb7ef5'
+revision: str = 'bc7ddfa9fe79'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
