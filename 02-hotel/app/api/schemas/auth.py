@@ -7,11 +7,10 @@ class TokenSchema(BaseModel):
 
 
 class UserInSchema(BaseModel):
-
-    username: str
     password: str
     first_name: str
     last_name: str
+    username: str
     email: str
     is_staff: bool = False
     is_active: bool = True

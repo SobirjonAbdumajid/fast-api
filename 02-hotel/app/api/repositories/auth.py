@@ -10,11 +10,15 @@ class AuthRepository:
         self.session = session
     async def create_user(self, data: dict) -> dict:
         stmt = text(
-            """INSERT INTO users (username, first_name, last_name, email, password, is_staff, is_active, is_superuser) VALUES
-                    (:username, :first_name, :last_name, :email, :password, :is_staff, :is_active, :is_superuser)"""
+            """INSERT INTO users (first_name, last_name, username, email, password, is_staff, is_active, is_superuser) VALUES
+                    (:first_name, :last_name, :username, :email, :password, :is_staff, :is_active, :is_superuser)"""
         ).bindparams(**data)
 
         await self.session.execute(stmt)
         await self.session.commit()
-        # return {"data": data}
+        return {"data": data}
+
+    async def check_exist_user(self, username: str) -> bool:
+        pass
+
 
