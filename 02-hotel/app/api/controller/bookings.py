@@ -12,4 +12,3 @@ class BookingController:
         room_price = await self.__bookings_repo.get_room_price(data.room_id)
         total_price = room_price * day
         return await self.__bookings_repo.make_booking(data, total_price)
-        # return await self.__bookings_repo.create_booking(user_id, room_id, check_in, check_out, total_price, status)
