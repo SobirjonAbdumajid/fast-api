@@ -1,4 +1,6 @@
 from fastapi import Depends
+from pydantic import BaseModel, Field
+from typing import Optional
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession

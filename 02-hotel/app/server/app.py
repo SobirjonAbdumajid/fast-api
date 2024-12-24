@@ -6,6 +6,8 @@ from app.api.views.rooms import router as rooms_router
 
 from app.api.views.auth import router as auth_router
 
+from app.api.views.bookings import router as bookings_router
+
 settings = get_settings()
 
 
@@ -17,4 +19,5 @@ def create_app() -> FastAPI:
     )
     app_.include_router(rooms_router, prefix="/rooms")
     app_.include_router(auth_router, prefix="/auth")
+    app_.include_router(bookings_router, prefix="/bookings")
     return app_
