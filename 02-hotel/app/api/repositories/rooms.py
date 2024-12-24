@@ -1,11 +1,7 @@
 from fastapi import Depends
-from pydantic import BaseModel, Field
-from typing import Optional
-
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database.config import get_general_session
-
 from app.api.schemas.rooms import RoomsSchema
 
 
@@ -72,27 +68,5 @@ class RoomsDetailsRepository:
         WHERE r.id = :room_id
         """)
         stmt = await self.session.execute(raw_sql, {"room_id": room_id})
-        result = stmt.mappings().all()
-
-        if result:
-            # Consolidate room details and feedbacks into a structured format
-            room_details = {
-                "room_number": result[0]["room_number"],
-                "room_type": result[0]["room_type"],
-                "price": result[0]["price"],
-                "status": result[0]["status"],
-                "feedbacks": [
-                    {
-                        "comment": row["feedback_comment"],
-                        "user": {
-                            "username": row["feedback_user"],
-                            "first_name": row["user_first_name"],
-                            "last_name": row["user_last_name"]
-                        }
-                    }
-                    for row in result if row["feedback_comment"] is not None
-                ]
-            }
-            return room_details
-        return None
+        return stmt.mappings().all()
 
