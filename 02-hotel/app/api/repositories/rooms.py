@@ -52,3 +52,47 @@ class RoomsDetailsRepository:
         if result:
             return RoomsSchema.model_validate(result)
         return None
+
+    async def get_room_with_feedbacks(self, room_id: int):
+        raw_sql = text("""
+        SELECT 
+            r.room_number, 
+            rt.title AS room_type, 
+            r.price, 
+            rs.title AS status, 
+            f.comment AS feedback_comment, 
+            u.username AS feedback_user,
+            u.first_name AS user_first_name,
+            u.last_name AS user_last_name
+        FROM rooms AS r
+        JOIN rooms_status AS rs ON r.status = rs.id
+        JOIN rooms_type AS rt ON r.room_type = rt.id
+        LEFT JOIN feedback AS f ON r.id = f.room_id
+        LEFT JOIN users AS u ON f.user_id = u.id
+        WHERE r.id = :room_id
+        """)
+        stmt = await self.session.execute(raw_sql, {"room_id": room_id})
+        result = stmt.mappings().all()
+
+        if result:
+            # Consolidate room details and feedbacks into a structured format
+            room_details = {
+                "room_number": result[0]["room_number"],
+                "room_type": result[0]["room_type"],
+                "price": result[0]["price"],
+                "status": result[0]["status"],
+                "feedbacks": [
+                    {
+                        "comment": row["feedback_comment"],
+                        "user": {
+                            "username": row["feedback_user"],
+                            "first_name": row["user_first_name"],
+                            "last_name": row["user_last_name"]
+                        }
+                    }
+                    for row in result if row["feedback_comment"] is not None
+                ]
+            }
+            return room_details
+        return None
+

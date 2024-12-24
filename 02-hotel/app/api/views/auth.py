@@ -2,8 +2,6 @@ from fastapi import APIRouter, Depends
 from starlette import status
 from app.api.schemas.auth import UserInSchema
 from fastapi.security import OAuth2PasswordRequestForm
-
-import schemas
 from app.api.controller.auth import AuthController
 
 router = APIRouter()

@@ -23,3 +23,8 @@ class RoomsDetailsController:
 
     async def get_room_details(self, room_id: int):
         return await self.__rooms_details_repo.get_room_by_id(room_id)
+
+    async def get_room_details_with_feedbacks(self, room_id: int):
+        return await self.__rooms_details_repo.get_room_with_feedbacks(room_id)
+
+

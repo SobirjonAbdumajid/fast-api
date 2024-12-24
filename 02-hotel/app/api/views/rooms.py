@@ -20,3 +20,14 @@ async def get_room_details(
     if not room:
         raise HTTPException(status_code=404, detail="Room not found")
     return room
+
+
+@router.get("/details_with_feedbacks/{room_id}", tags=["Rooms"])
+async def get_room_details(
+        room_id: int,
+        controller: RoomsDetailsController = Depends()
+):
+    room = await controller.get_room_details_with_feedbacks(room_id)
+    if not room:
+        raise HTTPException(status_code=404, detail="Room not found")
+    return room
