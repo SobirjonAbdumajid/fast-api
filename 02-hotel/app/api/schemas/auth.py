@@ -2,8 +2,7 @@ from pydantic import BaseModel
 
 
 class TokenSchema(BaseModel):
-    access_token: str
-    token_type: str
+    pass
 
 
 class UserInSchema(BaseModel):
@@ -15,3 +14,7 @@ class UserInSchema(BaseModel):
     is_staff: bool = False
     is_active: bool = True
     is_superuser: bool = False
+
+
+class User(UserInSchema):
+    id: int
